@@ -1,10 +1,10 @@
 #Get data from the user
-data = input("Enter data seperated by space: ").split()
+values = input("Enter data seperated by space: ").split()
 
 #Convert the strings to integers
 index = 0
-while index < len(data):
-    data[index] = int(data[index])
+while index < len(values):
+    values[index] = int(values[index])
     index += 1
 
 #Menu
@@ -16,7 +16,7 @@ print("3. Mode")
 choice = input("Enter your choice(1/2/3): ")
 
 #-------------CALCULATE MEAN-------------
-if choice == "1":
+def calc_mean(data):
     total = 0
     index = 0
     while index < len(data):
@@ -24,33 +24,30 @@ if choice == "1":
         index += 1
 
     mean = total / len(data)
-    print("Mean is: ",mean)
-    
+    return mean   
+
 #-------------CALCULATE MEDIAN------------
-elif choice == "2":
-    data.sort()
-    n = len(data)
-
+def calc_median(data):
+    sorted_data = sorted(data)
+    n = len(sorted_data)
     if n % 2 != 0:
-        median = data[n // 2]
+        median = sorted_data[n // 2]
     else:
-        median = (data[n // 2 - 1] + data [n // 2]) / 2
+        median = (sorted_data[n // 2 - 1] + sorted_data [n // 2]) / 2
 
-    print("Median is: ",median)  
+    return median
 
 #-------------CALCULATE MODE------------ 
-elif choice == "3":
+def calc_mode(data):
     frequency = {}
-
     index = 0
     while index < len(data):
         num = data[index] 
-
         if num in frequency:
             frequency[num] += 1
         else:
             frequency[num] = 1
-
+            
         index += 1
 
     # find max frequency
@@ -62,8 +59,14 @@ elif choice == "3":
             max_count = frequency[key]
             mode = key
     
-    print("Mode is: ",mode)
+    return mode
 
-#---------INVALID CASE---------
+#---------PROCESS USER CHOICE---------
+if choice == "1":
+    print("Mean is: ", calc_mean(values))
+elif choice == "2":
+    print("Median is: ", calc_median(values))
+elif choice == "3":
+    print("Mode is: ", calc_mode(values))
 else:
     print("Invalid Choice!")
